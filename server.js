@@ -39,8 +39,19 @@ const JWT_SECRET = process.env.JWT_SECRET || 'gram_setu_secret_key_123!';
 // 2. All API Routes (Centralized in routes/index.js)
 app.use('/api', apiRoutes);
 
-// Hello World Route for testing
-app.get('/', (req, res) => res.send('Gram Setu Backend is Running!'));
+// Root Route
+app.get('/', (req, res) => {
+  res.send('Gram Setu Backend is Running!');
+});
+
+// Health Check Route
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    server: 'Gram Setu Backend',
+    uptime: process.uptime()
+  });
+});
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
